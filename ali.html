@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Responsive Student Portal Dashboard">
+  <title>Student Portal | Dashboard</title>
+
+
+  <style>
+    :root {
+      --primary: #3457d5;
+      --dark: #202b46;
+      --light-bg: #f4f6fb;
+    }
+
+    body {
+      background: var(--light-bg);
+      font-family: Arial, sans-serif;
+      color: #30394d;
+    }
+
+
+    .navbar {
+      background: var(--dark);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    .navbar .nav-link {
+      color: #dce3f5;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .nav-link:focus {
+      color: white;
+    }
+
+    
+    .dashboard-container {
+      max-width: 1400px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      min-width: 0;
+    }
+
+    .dashboard-card h5 {
+      color: var(--dark);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    
+    .profile-card {
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #e4eaff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 40px;
+      margin: 0 auto 15px;
+    }
+
+    
+    .subject-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .subject-item {
+      padding: 15px;
+      border-radius: 9px;
+      background: #f0f3ff;
+    }
+
+    .subject-item i {
+      font-size: 23px;
+      color: var(--primary);
+    }
+
+    .subject-item h6 {
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    
+    .announcement {
+      border-left: 4px solid var(--primary);
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      background: #f7f8fc;
+      border-radius: 4px;
+    }
+
+    .announcement small {
+      color: #68738a;
+    }
+
+    /* Registration */
+    .registration-section {
+      margin-top: 25px;
+    }
+
+    .form-card {
+      max-width: 850px;
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 .2rem rgba(52,87,213,.15);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: #2846b5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #758097;
+    }
+
+    /* Tablet */
+    @media (max-width: 991.98px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .profile-card {
+        grid-column: span 2;
+      }
+    }
+
+    
+    @media (max-width: 575.98px) {
+      .dashboard-container {
+        padding: 20px 14px;
+      }
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .profile-card {
+        grid-column: auto;
+      }
+
+      .subject-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .welcome h2 {
+        font-size: 23px;
+      }
+
+      .dashboard-card {
+        padding: 17px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .subject-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-3 px-lg-4">
+
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-mortarboard-fill me-2"></i>
+        Student Portal
+      </a>
+
+      
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNavbar"
+              aria-controls="mainNavbar"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#dashboard">
+              <i class="bi bi-house-door me-1"></i> Dashboard
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#subjects">
+              <i class="bi bi-book me-1"></i> Subjects
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#announcements">
+              <i class="bi bi-megaphone me-1"></i> Announcements
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#registration">
+              <i class="bi bi-person-plus me-1"></i> Registration
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  <main class="dashboard-container" id="dashboard">
+
+    <section class="welcome">
+      <h2>Welcome Back, Student!</h2>
+      <p class="text-secondary">
+        Here's your student dashboard and academic overview.
+      </p>
+    </section>
+
+    
+    <div class="dashboard-grid">
+
+      
+      <section class="dashboard-card profile-card"
+               aria-labelledby="profileHeading">
+
+        <div class="profile-avatar" aria-hidden="true">
+          <i class="bi bi-person-fill"></i>
+        </div>
+
+        <h5 id="profileHeading">Student Profile</h5>
+
+        <h6> Allaiza Cruz </h6>
+        <p class="text-secondary mb-2">BS Information Technology</p>
+
+        <hr>
+
+        <p><strong>Student ID:</strong> 2026-2027 </p>
+        <p><strong>Year Level:</strong> 1st Year </p>
+        <p><strong>Email:</strong> allaizacruz902@gmail.com</p>
+
+        <a href="#registration" class="btn btn-outline-primary btn-sm">
+          Update Information
+        </a>
+      </section>
+
+      
+      <section class="dashboard-card"
+               id="subjects"
+               aria-labelledby="subjectsHeading">
+
+        <h5 id="subjectsHeading">
+          <i class="bi bi-book-half me-2 text-primary"></i>
+          My Subjects
+        </h5>
+
+        <div class="subject-list">
+
+          <div class="subject-item">
+            <i class="bi bi-code-slash" aria-hidden="true"></i>
+            <h6>Web Development</h6>
+            <small class="text-secondary">IS 101</small>
+          </div>
+
+          <div class="subject-item">
+            <i class="bi bi-database" aria-hidden="true"></i>
+            <h6>Database</h6>
+            <small class="text-secondary">IS 102</small>
+          </div>
+
+          <div class="subject-item">
+            <i class="bi bi-pc-display" aria-hidden="true"></i>
+            <h6>Networking</h6>
+            <small class="text-secondary">IS 103</small>
+          </div>
+
+          <div class="subject-item">
+            <i class="bi bi-calculator" aria-hidden="true"></i>
+            <h6>Mathematics</h6>
+            <small class="text-secondary">MATH 201</small>
+          </div>
+
+        </div>
+      </section>
+
+      
+      <section class="dashboard-card"
+               id="announcements"
+               aria-labelledby="announcementsHeading">
+
+        <h5 id="announcementsHeading">
+          <i class="bi bi-megaphone-fill me-2 text-primary"></i>
+          Announcements
+        </h5>
+
+        <div class="announcement">
+          <strong>Enrollment Reminder</strong>
+          <p class="mb-1 small">
+            Please complete your enrollment requirements.
+          </p>
+          <small>November 20, 2026</small>
+        </div>
+
+        <div class="announcement">
+          <strong>Examination Schedule</strong>
+          <p class="mb-1 small">
+            Midterm examination schedules are now available.
+          </p>
+          <small>November 25, 2026</small>
+        </div>
+
+        <div class="announcement">
+          <strong>School Activities</strong>
+          <p class="mb-1 small">
+            Join the upcoming student technology seminar.
+          </p>
+          <small>December 5, 2026</small>
+        </div>
+
+      </section>
+
+    </div>
+
+    
+    <section class="registration-section"
+             id="registration"
+             aria-labelledby="registrationHeading">
+
+      <div class="dashboard-card form-card">
+
+        <h4 id="registrationHeading" class="mb-2">
+          <i class="bi bi-person-plus-fill text-primary me-2"></i>
+          Student Registration Form
+        </h4>
+
+        <p class="text-secondary">
+          Complete the form below to register your student information.
+          Fields marked with * are required.
+        </p>
+
+        <hr>
+
+        <form id="studentForm" class="needs-validation" novalidate>
+
+        
+          <div class="mb-3">
+            <label for="fullName" class="form-label">
+              Full Name *
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   id="fullName"
+                   name="fullName"
+                   placeholder="Enter your full name"
+                   autocomplete="name"
+                   required>
+
+            <div class="invalid-feedback">
+              Please enter your full name.
+            </div>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              Email Address *
+            </label>
+
+            <input type="email"
+                   class="form-control"
+                   id="email"
+                   name="email"
+                   placeholder="example@email.com"
+                   autocomplete="email"
+                   required>
+
+            <div class="invalid-feedback">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="studentId" class="form-label">
+              Student ID *
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   id="studentId"
+                   name="studentId"
+                   placeholder="Enter your student ID"
+                   required>
+
+            <div class="invalid-feedback">
+              Please enter your student ID.
+            </div>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for="course" class="form-label">
+              Course *
+            </label>
+
+            <select class="form-select"
+                    id="course"
+                    name="course"
+                    required>
+
+              <option value="" selected disabled>
+                Select your course
+              </option>
+
+              <option value="BSIS">
+                BS Information System
+              </option>
+
+              <option value="BSCS">
+                BS Computer Science
+              </option>
+
+              <option value="BSBA">
+                BS Business Administration
+              </option>
+
+              <option value="BSED">
+                BS Secondary Education
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Please select your course.
+            </div>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for="yearLevel" class="form-label">
+              Year Level *
+            </label>
+
+            <select class="form-select"
+                    id="yearLevel"
+                    name="yearLevel"
+                    required>
+
+              <option value="" selected disabled>
+                Select year level
+              </option>
+
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">4th Year</option>
+
+            </select>
+
+            <div class="invalid-feedback">
+              Please select your year level.
+            </div>
+          </div>
+
+          
+          <fieldset class="mb-3">
+            <legend class="form-label fs-6">
+              Gender *
+            </legend>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input"
+                     type="radio"
+                     name="gender"
+                     id="male"
+                     value="Male"
+                     required>
+
+              <label class="form-check-label" for="male">
+                Male
+              </label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input"
+                     type="radio"
+                     name="gender"
+                     id="female"
+                     value="Female"
+                     required>
+
+              <label class="form-check-label" for="female">
+                Female
+              </label>
+            </div>
+
+            <div class="invalid-feedback">
+              Please select your gender.
+            </div>
+          </fieldset>
+
+          
+          <div class="form-check mb-4">
+            <input class="form-check-input"
+                   type="checkbox"
+                   id="terms"
+                   name="terms"
+                   required>
+
+            <label class="form-check-label" for="terms">
+              I confirm that the information provided is correct.
+            </label>
+
+            <div class="invalid-feedback">
+              You must confirm your information before submitting.
+            </div>
+          </div>
+
+          
+          <button type="submit" class="btn btn-primary px-4">
+            <i class="bi bi-send me-2"></i>
+            Submit Registration
+          </button>
+
+          <button type="reset" class="btn btn-outline-secondary px-4">
+            Clear Form
+          </button>
+
+          <div id="formMessage"
+               class="mt-3"
+               role="status"
+               aria-live="polite">
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p class="mb-0">
+      &copy; 2026 Student Portal. All Rights Reserved.
+    </p>
+  </footer>
+
+  <!-- Bootstrap JavaScript Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+  <!-- Form Validation -->
+  <script>
+    const form = document.getElementById("studentForm");
+    const message = document.getElementById("formMessage");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        message.textContent = "Please complete all required fields.";
+        message.className = "mt-3 text-danger";
+        return;
+      }
+
+      form.classList.add("was-validated");
+
+      message.textContent =
+        "Registration submitted successfully! (Demo only.)";
+
+      message.className = "mt-3 text-success fw-bold";
+
+      form.reset();
+      form.classList.remove("was-validated");
+    });
+
+    form.addEventListener("reset", function() {
+      message.textContent = "";
+      form.classList.remove("was-validated");
+    });
+  </script>
+
+</body>
+</html>
